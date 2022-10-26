@@ -6,6 +6,11 @@ import AppLayout from '../layout/AppLayout';
 import AccountProfile from '../components/account/AccountProfile'
 import { AccountProfileDetails } from '../components/account/AccountProfileDetails';
 
+// Auth
+import { privatePage } from '../contexts/FirebaseAuth';
+
+// <------------------------------------------> //
+
 function cuenta() {
   return (
     <AppLayout>
@@ -50,4 +55,4 @@ function cuenta() {
   )
 }
 
-export default cuenta
+export default privatePage(cuenta)

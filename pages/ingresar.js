@@ -4,6 +4,11 @@ import { Box, Paper } from "@mui/system"
 // Components
 import LoginForm from "../components/signforms/LoginForm"
 
+// Auth
+import { publicPage } from "../contexts/FirebaseAuth"
+
+// <---------------------------------------> //
+
 function Ingresar() {
   return (
     <Box
@@ -44,4 +49,4 @@ function Ingresar() {
   )
 }
 
-export default Ingresar
+export default publicPage(Ingresar)

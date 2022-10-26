@@ -22,24 +22,10 @@ function LoginForm() {
       await auth.signInWithPopup(googleAuthProvider);
   };
 
-    // return (
-    //   <Button
-    //               color="error"
-    //               fullWidth
-    //               onClick={() => formik.handleSubmit()}
-    //               size="large"
-    //               startIcon={<GoogleIcon />}
-    //               variant="contained"
-    //             >
-    //               Ingresa con Google
-    //             </Button>
-    // )
-  
-
     const formik = useFormik({
         initialValues: {
-          email: 'demo@devias.io',
-          password: 'Password123'
+          email: '',
+          password: ''
         },
         validationSchema: Yup.object({
           email: Yup
@@ -91,38 +77,11 @@ function LoginForm() {
               container
               spacing={3}
             >
-              {/* <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<ArrowBackIosIcon />}
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid> */}
               <Grid
                 item
                 xs={12}
                 md={12}
               >
-                {/* <SignInButton /> */}
-                {/* <Button
-                  color="error"
-                  fullWidth
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  startIcon={<GoogleIcon />}
-                  variant="contained"
-                >
-                  Ingresa con Google
-                </Button> */}
                 <Button
                   color="secondary"
                   fullWidth
@@ -193,9 +152,9 @@ function LoginForm() {
             >
               ¿Aún no tienes una cuenta?
               {' '}
-              {/* <NextLink
+              <NextLink
                 href="/registro"
-              > */}
+              >
                 <Link
                   // to="/registro"
                   variant="subtitle2"
@@ -206,10 +165,9 @@ function LoginForm() {
                 >
                   Regístrate
                 </Link>
-              {/* </NextLink> */}
+              </NextLink>
             </Typography>
           </form>
-          {/* </Container> */}
         </Box>
 
 

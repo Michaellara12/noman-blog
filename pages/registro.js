@@ -4,6 +4,9 @@ import { Box } from "@mui/system"
 // Components
 import RegisterForm from "../components/signforms/RegisterForm"
 
+// Auth
+import { publicPage } from "../contexts/FirebaseAuth"
+
 function Registro() {
   return (
     <Box
@@ -42,4 +45,4 @@ function Registro() {
   )
 }
 
-export default Registro
+export default publicPage(Registro)
