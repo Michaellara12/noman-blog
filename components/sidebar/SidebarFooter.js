@@ -59,9 +59,7 @@ function SidebarFooter() {
                             component="a"
                             endIcon={(<LaunchIcon />)}
                             fullWidth
-                            // sx={{ mt: 2, bgcolor: 'noman.orange', borderRadius:'1.6rem' }}
                             variant="contained"
-                            
                         >
                             Escríbenos
                         </Button>

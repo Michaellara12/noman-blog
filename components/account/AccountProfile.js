@@ -1,3 +1,6 @@
+// hooks
+import useUserData from '../../hooks/useUserData';
+
 // MUI
 import {
     Avatar,
@@ -20,6 +23,9 @@ const user = {
 
 
 function AccountProfile() {
+
+  const { userfb } = useUserData()
+
   return (
     <Card>
         <CardContent>
@@ -54,16 +60,7 @@ function AccountProfile() {
                 </Typography>
             </Box>
         </CardContent>
-        {/* <Divider />
-        <CardActions>
-        <Button
-            color="primary"
-            fullWidth
-            variant="text"
-        >
-            Upload picture
-        </Button>
-        </CardActions> */}
+      
     </Card>
   )
 }

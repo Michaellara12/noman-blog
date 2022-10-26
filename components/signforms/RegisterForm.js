@@ -91,7 +91,7 @@ const RegisterForm = () => {
               </Typography>
             </Box>
             <Button
-                  color="error"
+                  color="secondary"
                   fullWidth
                   onClick={() => formik.handleSubmit()}
                   size="large"

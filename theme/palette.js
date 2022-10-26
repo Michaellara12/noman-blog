@@ -11,13 +11,13 @@ const GREY = {
   0: '#FFFFFF',
   100: '#F9FAFB',
   200: '#F4F6F8',
-  300: '#DFE3E8',
-  400: '#C4CDD5',
-  500: '#919EAB',
-  600: '#637381',
-  700: '#454F5B',
-  800: '#212B36',
-  900: '#161C24',
+  300: '#E9EEF9',
+  400: '#CDD6EA',
+  500: '#92A2C2',
+  600: '#5E7197',
+  700: '#3B4B6B',
+  800: '#2B374F',
+  900: '#142037',
   500_8: alpha('#919EAB', 0.08),
   500_12: alpha('#919EAB', 0.12),
   500_16: alpha('#919EAB', 0.16),
@@ -29,56 +29,56 @@ const GREY = {
 };
 
 const PRIMARY = {
-  lighter: '#D1E9FC',
-  light: '#76B0F1',
-  main: '#2065D1',
-  dark: '#103996',
-  darker: '#061B64',
+  lighter: '#FFE6DE',
+  light: '#FFBDA8',
+  main: '#FF7F55',
+  dark: '#DF5436',
+  darker: '#A13020',
   contrastText: '#fff',
 };
 
 const SECONDARY = {
-  lighter: '#D6E4FF',
-  light: '#84A9FF',
-  main: '#3366FF',
-  dark: '#1939B7',
-  darker: '#091A7A',
+  lighter: '#D4F9EE',
+  light: '#9BD8D4',
+  main: '#008D8C',
+  dark: '#006261',
+  darker: '#003932',
   contrastText: '#fff',
 };
 
 const INFO = {
-  lighter: '#D0F2FF',
-  light: '#74CAFF',
-  main: '#1890FF',
-  dark: '#0C53B7',
-  darker: '#04297A',
+  lighter: '#C9D4E9',
+  light: '#6E7C96',
+  main: '#2B374F',
+  dark: '#1B2447',
+  darker: '#141E42',
   contrastText: '#fff',
 };
 
 const SUCCESS = {
-  lighter: '#E9FCD4',
-  light: '#AAF27F',
-  main: '#54D62C',
-  dark: '#229A16',
-  darker: '#08660D',
+  lighter: '#BDFFD3',
+  light: '#56EA88',
+  main: '#1BB951',
+  dark: '#008756',
+  darker: '#003E3A',
   contrastText: GREY[800],
 };
 
 const WARNING = {
-  lighter: '#FFF7CD',
-  light: '#FFE16A',
-  main: '#FFC107',
-  dark: '#B78103',
-  darker: '#7A4F01',
+  lighter: '#FFFAF3',
+  light: '#FDF3E7',
+  main: '#F4E2CC',
+  dark: '#DFC5A5',
+  darker: '#C17950',
   contrastText: GREY[800],
 };
 
 const ERROR = {
-  lighter: '#FFE7D9',
-  light: '#FFA48D',
-  main: '#FF4842',
-  dark: '#B72136',
-  darker: '#7A0C2E',
+  lighter: '#FDC6DD',
+  light: '#EB5392',
+  main: '#E9116A',
+  dark: '#CE0F6B',
+  darker: '#820448',
   contrastText: '#fff',
 };
 
@@ -111,7 +111,7 @@ const palette = {
   chart: CHART_COLORS,
   divider: GREY[500_24],
   text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-  background: { paper: '#fff', default: GREY[100], neutral: GREY[200] },
+  background: { paper: '#FFF', default: GREY[200], neutral: GREY[200] },
   action: {
     active: GREY[600],
     hover: GREY[500_8],

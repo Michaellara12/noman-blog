@@ -19,7 +19,7 @@ export default function ThemeProvider({ children }) {
   const themeOptions = useMemo(
     () => ({
       palette,
-      shape: { borderRadius: 20 },
+      shape: { borderRadius: 12 },
       typography,
       shadows,
       customShadows,

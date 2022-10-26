@@ -12,7 +12,29 @@ import { Box, Button, Container, Grid, Link, TextField, Typography, Paper } from
 // Icons
 import GoogleIcon from '@mui/icons-material/Google';
 
+// Firebase
+import { googleAuthProvider, auth } from '../../lib/firebase';
+
 function LoginForm() {
+
+
+  const signInWithGoogle = async () => {
+      await auth.signInWithPopup(googleAuthProvider);
+  };
+
+    // return (
+    //   <Button
+    //               color="error"
+    //               fullWidth
+    //               onClick={() => formik.handleSubmit()}
+    //               size="large"
+    //               startIcon={<GoogleIcon />}
+    //               variant="contained"
+    //             >
+    //               Ingresa con Google
+    //             </Button>
+    // )
+  
 
     const formik = useFormik({
         initialValues: {
@@ -90,10 +112,21 @@ function LoginForm() {
                 xs={12}
                 md={12}
               >
-                <Button
+                {/* <SignInButton /> */}
+                {/* <Button
                   color="error"
                   fullWidth
                   onClick={() => formik.handleSubmit()}
+                  size="large"
+                  startIcon={<GoogleIcon />}
+                  variant="contained"
+                >
+                  Ingresa con Google
+                </Button> */}
+                <Button
+                  color="secondary"
+                  fullWidth
+                  onClick={signInWithGoogle}
                   size="large"
                   startIcon={<GoogleIcon />}
                   variant="contained"
@@ -160,9 +193,9 @@ function LoginForm() {
             >
               ¿Aún no tienes una cuenta?
               {' '}
-              <NextLink
+              {/* <NextLink
                 href="/registro"
-              >
+              > */}
                 <Link
                   // to="/registro"
                   variant="subtitle2"
@@ -173,7 +206,7 @@ function LoginForm() {
                 >
                   Regístrate
                 </Link>
-              </NextLink>
+              {/* </NextLink> */}
             </Typography>
           </form>
           {/* </Container> */}

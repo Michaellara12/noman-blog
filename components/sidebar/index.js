@@ -27,11 +27,7 @@ const items = [
       icon: (<WidgetsIcon fontSize="small" />),
       title: 'Registro'
     },
-    {
-      href: '/ingresar',
-      icon: (<WidgetsIcon fontSize="small" />),
-      title: 'Ingresar'
-    }
+    
 ]
 
 function Sidebar() {
@@ -42,7 +38,7 @@ function Sidebar() {
             height: '100%',
             borderRadius: '1.6rem',
             p: '0 1rem',
-            overflow:'scroll'
+            overflow:'scroll',
         }}
         
     >
@@ -50,7 +46,8 @@ function Sidebar() {
     {/* Logo */}
     <Box
       sx={{
-        p: '1rem 2rem',
+        // p: '2rem 2rem 1rem 2rem',
+        p: '2rem 3rem',
         display: 'flex',
         justifyContent: 'center'
       }}

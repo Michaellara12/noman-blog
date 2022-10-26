@@ -1,14 +1,21 @@
-// MUI
-import { Typography, Button } from "@mui/material"
-
 // Components
 import AppLayout from "../layout/AppLayout"
+import Ingresar from "./ingresar"
+
+// hooks
+import useUserData from "../hooks/useUserData"
 
 export default function Home() {
+
+  const { user } = useUserData();
+
   return (
-    <AppLayout>
-      <Typography variant="h1">home</Typography>
-      <Button>hiii</Button>
-    </AppLayout>
+    // <div>
+    //   {user
+    //     ? <AppLayout />
+    //     : <Ingresar />
+    //   }
+    // </div>
+    <AppLayout />  
   )
 }
