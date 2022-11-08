@@ -5,8 +5,14 @@ import { Box } from "@mui/system"
 // Icons
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
+// Conext
+import { useAuth } from "../../contexts/AuthContext";
+
 
 function AccountMenuBtn() {
+
+  const { currentUser } = useAuth();
+
   return (
     <Box
         sx={{
@@ -18,22 +24,27 @@ function AccountMenuBtn() {
             sx={{
                 width: '4rem',
                 height: '4rem',
-                m: '0.5rem 1rem 0.5rem 0'
+                // m: {lg: '0.5rem 2.4rem 0.5rem 0', xs: '0.5rem 1.6rem 0.5rem 0'}
+                // m: '1rem'
             }}
+            // src={currentUser.photoURL}
+            src='https://entey.net/wp-content/uploads/2022/08/robot.webp'
         /> 
         <Box
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'left',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                p: '0 0.1rem',
+                ml: '0.5rem'
             }}
         >
             <Typography
-                variant='subtitle1'
+                variant='subtitle2'
                 align='left'
             >
-                Elon Musk
+                {currentUser.displayName}
             </Typography>
             <Typography
                 variant='body2'
@@ -42,7 +53,7 @@ function AccountMenuBtn() {
                 Escencia: 15 
             </Typography>
         </Box>
-        <KeyboardArrowDownIcon fontSize="medium" sx={{ ml: '1rem' }}/>
+        <KeyboardArrowDownIcon fontSize="medium" sx={{ ml: '0.2rem' }}/>
 
     </Box>
   )

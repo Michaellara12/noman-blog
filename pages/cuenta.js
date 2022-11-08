@@ -9,10 +9,18 @@ import { AccountProfileDetails } from '../components/account/AccountProfileDetai
 // Auth
 import { privatePage } from '../contexts/FirebaseAuth';
 
+// Next JS
+import Head from 'next/head';
+
 // <------------------------------------------> //
 
 function cuenta() {
+
   return (
+    <>
+    <Head>
+      <title>Perfil | Noman</title>
+    </Head>
     <AppLayout>
       <Box
         component="main"
@@ -52,6 +60,7 @@ function cuenta() {
         </Container>
       </Box>
     </AppLayout>
+    </>
   )
 }
 

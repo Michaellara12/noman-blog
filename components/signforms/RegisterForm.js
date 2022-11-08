@@ -5,6 +5,7 @@ import Router from 'next/router';
 // Dependencies
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useState } from 'react';
 
 // MUI
 import {
@@ -20,12 +21,56 @@ import {
 } from '@mui/material';
 
 // Icons
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import GoogleIcon from '@mui/icons-material/Google';
+
+// Components
+import { useAuth } from "../../contexts/AuthContext"
+import { googleAuthProvider, auth } from '../../lib/firebase';
+import { getAuth, updateProfile } from "firebase/auth";
 
 
 
 const RegisterForm = () => {
+
+  // useState
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // Auth
+  const { signup, signInWithGoogle, currentUser } = useAuth();
+
+  async function ingresarConGoogle(e) {
+    e.preventDefault()
+
+    try {
+      setError("")
+      setLoading(true)
+      await signInWithGoogle()
+      Router.push('/')
+    } catch {
+      setError('Oops algo salió mal, por favor intentalo más tarde')
+    }
+  }
+
+  async function handleSubmit(e) {
+
+    try {
+      setError('')
+      setLoading(true)
+      await signup(formik.values.email, formik.values.password)
+      const auth = getAuth();
+      updateProfile(auth.currentUser, {
+        displayName: formik.values.firstName + " " + formik.values.lastName
+      }).then(() => {
+        Router.push('/')
+      }).catch((e) => {
+        console.log(e)
+      })
+    } catch {
+      setError('No fue posible crear una cuenta, por favor intentalo más tarde')
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -37,40 +82,39 @@ const RegisterForm = () => {
     validationSchema: Yup.object({
       email: Yup
         .string()
-        .email('Must be a valid email')
+        .email('Por favor agrega un email válido')
         .max(255)
         .required(
-          'Email is required'),
+          'Este campo es obligatorio'),
       firstName: Yup
         .string()
         .max(255)
-        .required('First name is required'),
+        .required('Este campo es obligatorio'),
       lastName: Yup
         .string()
         .max(255)
-        .required('Last name is required'),
+        .required('Este campo es obligatorio'),
       password: Yup
         .string()
         .max(255)
-        .required('Password is required'),
+        .required('Este campo es obligatoriod'),
       policy: Yup
         .boolean()
         .oneOf(
           [true],
-          'This field must be checked'
+          'Para crear una cuenta debes aceptar nuestros Terminos & Condiciones'
         )
     }),
     onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
+      handleSubmit()
     }
   });
 
   return (
     <Paper
         sx={{
-            py: '2rem'
+            py: '2rem',
+            bgcolor: { xs: '#F4F6F8' }
         }}
     >
         <Container maxWidth="sm">
@@ -93,7 +137,7 @@ const RegisterForm = () => {
             <Button
                   color="secondary"
                   fullWidth
-                  onClick={() => formik.handleSubmit()}
+                  onClick={ingresarConGoogle}
                   size="large"
                   startIcon={<GoogleIcon />}
                   variant="contained"

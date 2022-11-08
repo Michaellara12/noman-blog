@@ -11,7 +11,9 @@ function NavItem(props) {
   const active = href ? (router.pathname === href) : false;
   const btn = active ? 'outlined' : 'text';
   return (
-    <ListItem>
+    <ListItem
+        sx={{m: 0, p: 0}}
+    >
         <NextLink
             href={href}
             passHref
@@ -22,7 +24,7 @@ function NavItem(props) {
                 fullWidth
                 sx={{
                     p: '1rem 0 1rem 2rem',
-                    borderRadius: '1.6rem',
+                    borderRadius: '1.2rem',
                     fontWeight: active && 'fontWeightBold',
                     justifyContent: 'flex-start',
                     textAlign: 'left',

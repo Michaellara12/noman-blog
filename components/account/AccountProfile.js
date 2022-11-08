@@ -1,6 +1,3 @@
-// hooks
-import useUserData from '../../hooks/useUserData';
-
 // MUI
 import {
     Avatar,
@@ -13,18 +10,19 @@ import {
     Typography
   } from '@mui/material';
 
-const user = {
-    avatar: 'https://fotografias.lasexta.com/clipping/cmsimages02/2022/05/03/6F9C82A4-0FA4-40F9-BE2F-87F8DBBC1224/elon-musk-met-gala_104.jpg?crop=1407,1407,x0,y0&width=1200&height=1200&optimize=low&format=webply',
-    country: 'USA',
-    jobTitle: 'Technoking',
-    name: 'Elon Musk',
-    escencia: '15'
-};
+import { useAuth } from '../../contexts/AuthContext';
 
 
 function AccountProfile() {
 
-  const { userfb } = useUserData()
+  const { currentUser } = useAuth();
+  const user = {
+    avatar: 'https://entey.net/wp-content/uploads/2022/08/robot.webp',
+    country: 'USA',
+    jobTitle: 'Technoking',
+    name: currentUser.displayName,
+    escencia: '15'
+    };
 
   return (
     <Card>
@@ -49,7 +47,7 @@ function AccountProfile() {
                     gutterBottom
                     variant="h5"
                 >
-                    {user.name}
+                    {currentUser.displayName}
                 </Typography>
                 
                 <Typography

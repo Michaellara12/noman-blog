@@ -2,7 +2,7 @@
 import { createContext, useContext, useState, useEffect } from "react"
 
 // Firebase
-import { auth } from "../lib/firebase"
+import { auth, googleAuthProvider } from "../lib/firebase"
 
 // <---------------------------------------------------> //
 
@@ -20,6 +20,11 @@ function AuthProvider({ children }) {
     // This returns a promise
     return auth.createUserWithEmailAndPassword(email, password)
   }
+
+  const signInWithGoogle = async () => {
+    const userResult = await auth.signInWithPopup(googleAuthProvider);
+    return userResult
+  };
 
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password)
@@ -57,6 +62,7 @@ function AuthProvider({ children }) {
   const value = {
     currentUser,
     signup,
+    signInWithGoogle,
     login,
     logout,
     resetPassword,

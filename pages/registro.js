@@ -21,12 +21,11 @@ function Registro() {
       <Box
         sx={{
           width: '50%',
-          display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          display: { xs: 'none', lg: 'flex'},
         }}
       >
-        {/* <img src='https://entey.net/wp-content/uploads/2022/10/Illustrations2_Mesa-de-trabajo-1-1-min.png'/> */}
         <img src='https://minimal-kit-react.vercel.app/assets/illustrations/illustration_login.png'/>
       </Box>
       <Box
@@ -35,9 +34,7 @@ function Registro() {
           height: '100%',
           flexGrow: 1,
           display: 'flex',
-          // justifyContent: 'center',
           alignItems: 'center',
-          // bgcolor: '#FF5733'
         }}>
         <RegisterForm />
       </Box>

@@ -1,34 +1,61 @@
-import { Box } from "@mui/system"
+// MUI
+import { Toolbar, Box, IconButton, Avatar, Stack } from "@mui/material"
+import MenuIcon from '@mui/icons-material/Menu';
 
 // Components
 import Sidebar from "../components/sidebar"
+import MenuAppBar from "../components/navbar";
 
 function AppLayout({children}) {
   return (
-    <Box
-        sx={{
-            display: 'flex'
-        }}
-    >
+    <>
+        {/* Sidebar */}
         <Box
             sx={{
-                width: '18%',
-                height: '100vh',
-                p: '0.8rem'
+                display: {lg: 'flex', xs: 'none'}
             }}
         >
-            <Sidebar />
+            <Box
+                sx={{
+                    width: '16%',
+                    height: '100vh',
+                    p: '0.8rem'
+                }}
+            >
+                <Sidebar />
+            </Box>
+            <Box
+                sx={{
+                    width: '84%',
+                    height: '100vh',
+                    p: '1.6rem'
+                }}
+            >
+                {children}
+            </Box>
         </Box>
-        <Box
+
+        {/* Navbar */}
+        {/* <Toolbar
             sx={{
-                width: '86%',
-                height: '100vh',
-                p: '1.6rem'
+                display: {lg: 'none', xs: 'block'},
+                p: '1rem'
             }}
         >
-            {children}
+            <IconButton>
+                <MenuIcon />
+            </IconButton>
+            <Box sx={{ flexGrow: 1 }} />
+            <Stack direction='row'>
+                <Avatar />
+            </Stack>
+        </Toolbar> */}
+        <Box sx={{display: {lg: 'none'}}}>
+            <MenuAppBar>
+                {children}
+            </MenuAppBar>
         </Box>
-    </Box>
+    </>
   )
 }
 

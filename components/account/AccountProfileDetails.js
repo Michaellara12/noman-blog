@@ -10,6 +10,9 @@ import {
   TextField
 } from '@mui/material';
 
+// Firebase
+import { getAuth, updateProfile } from "firebase/auth";
+
 const states = [
   {
     value: 'alabama',
@@ -25,11 +28,20 @@ const states = [
   }
 ];
 
+// <--------------------------------------->//
+
+import { useAuth } from '../../contexts/AuthContext';
+
 export const AccountProfileDetails = (props) => {
+
+  const { currentUser } = useAuth();
+  const auth = getAuth();
+
+
   const [values, setValues] = useState({
-    firstName: 'Katarina',
+    firstName: currentUser.displayName,
     lastName: 'Smith',
-    email: 'demo@devias.io',
+    email: currentUser.email,
     phone: '',
     state: 'Alabama',
     country: 'USA'
@@ -41,6 +53,18 @@ export const AccountProfileDetails = (props) => {
       [event.target.name]: event.target.value
     });
   };
+
+  // function updateProfile(e) {
+  //   updateProfile(auth.currentUser, {
+  //     displayName: values.firstName
+  //   }).then(() => {
+  //     // Router.push('/')
+  //     console.log("name udated")
+  //   }).catch((e) => {
+  //     console.log(e)
+  //   })
+  //   console.log(values.firstName)
+  // }
 
   return (
     <form
@@ -70,15 +94,16 @@ export const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 helperText="Por favor verifica tu primer nombre"
-                label="Primer nombre"
+                label="Nombre"
                 name="firstName"
                 onChange={handleChange}
                 required
                 value={values.firstName}
                 variant="outlined"
+                disabled
               />
             </Grid>
-            <Grid
+            {/* <Grid
               item
               md={6}
               xs={12}
@@ -92,7 +117,7 @@ export const AccountProfileDetails = (props) => {
                 value={values.lastName}
                 variant="outlined"
               />
-            </Grid>
+            </Grid> */}
             <Grid
               item
               md={6}
@@ -109,7 +134,7 @@ export const AccountProfileDetails = (props) => {
                 disabled
               />
             </Grid>
-            <Grid
+            {/* <Grid
               item
               md={6}
               xs={12}
@@ -123,7 +148,7 @@ export const AccountProfileDetails = (props) => {
                 value={values.phone}
                 variant="outlined"
               />
-            </Grid>            
+            </Grid>             */}
           </Grid>
         </CardContent>
         <Divider />
@@ -137,6 +162,8 @@ export const AccountProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={() => {updateProfile}}
+            disabled
           >
             Guardar
           </Button>

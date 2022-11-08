@@ -4,6 +4,12 @@ import { useRouter } from "next/router";
 // Hooks
 import { useAuth } from "./AuthContext"
 
+// components
+import Loader from '../utils/Loader'
+
+
+// <-----------------------------------------------------------> //
+
 
 export function publicPage(Component) {
   return function PublicPage(props) {
@@ -12,7 +18,7 @@ export function publicPage(Component) {
 
     if (currentUser) {
       router.replace("/");
-      return <h1>Loading...</h1>
+      return <Loader />
     }
 
     return <Component {...props} />;
@@ -20,14 +26,18 @@ export function publicPage(Component) {
 }
 
 
+
+
 export function privatePage(Component) {
+
   return function PrivatePage(props) {
     const { currentUser } = useAuth();
-    const router =useRouter();
+    const router = useRouter();
+    
 
     if (!currentUser) {
-      router.replace("/login");
-      return <h1>Loading...</h1>
+      router.replace("/ingresar");
+      return <Loader />
     }
 
     return <Component {...props} />;

@@ -7,20 +7,85 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 // MUI
-import { Box, Button, Container, Grid, Link, TextField, Typography, Paper } from '@mui/material';
+import { Box, Button, Grid, Link, TextField, Typography, Alert, Snackbar } from '@mui/material';
 
 // Icons
 import GoogleIcon from '@mui/icons-material/Google';
 
 // Firebase
-import { googleAuthProvider, auth } from '../../lib/firebase';
+import { useAuth } from '../../contexts/AuthContext';
+import { useState, useRef } from 'react';
+import { setDoc } from 'firebase/firestore'
+import db from '../../lib/firebase';
+
+// <-----------------------------------------> //
 
 function LoginForm() {
 
+  const { signInWithGoogle, login } = useAuth()
+  const [open, setOpen] = useState(false)
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const signInWithGoogle = async () => {
-      await auth.signInWithPopup(googleAuthProvider);
+  // Snackbar
+  const handleClick = () => {
+    setOpen(true);
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  // Auth 
+  async function ingresarConGoogle(e) {
+    e.preventDefault()
+
+    try {
+      setError("")
+      setLoading(true)
+      const userCredential = await signInWithGoogle()
+      const name = userCredential.user.displayName.split(" ")
+      const dbRef = db.collection("users").doc(userCredential.user.uid)
+      dbRef.get()
+        .then((snapshot) => {
+          if(snapshot.exists) {
+            Router.push("/")
+          } else {
+            setDoc(dbRef, {
+            primerNombre: name[0],
+            apellido: name[1],
+            fotoPerfil: userCredential.user.photoURL
+          })
+        }
+      })
+    } catch {
+      setError('Oops algo salió mal, por favor intentalo más tarde')
+    }
+  }
+
+  async function ingresarConEmail(e) {
+    e.preventDefault()
+    try {
+        // Reset error to empty
+        setError('')
+        setLoading(true)
+        // console.log(formik.values.email, formik.values.password)
+        await login(formik.values.email, formik.values.password)
+        router.push("/")
+
+    } catch(error) {
+      handleClick()
+    }
+
+    setLoading(false)
+
+
+  }
+  
 
     const formik = useFormik({
         initialValues: {
@@ -30,23 +95,23 @@ function LoginForm() {
         validationSchema: Yup.object({
           email: Yup
             .string()
-            .email('Must be a valid email')
+            .email('Por favor agrega un email válido')
             .max(255)
-            .required('Email is required'),
+            .required('Este campo es obligatorio'),
           password: Yup
             .string()
             .max(255)
-            .required('Password is required')
+            .required('Este campo es obligatorio')
         }),
-        onSubmit: () => {
-          Router
-            .push('/')
-            .catch(console.error);
-        }
       });
     
   return (
     <>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            El usuario o contraseña son incorrectos
+          </Alert>
+        </Snackbar>
         <Box
             component="main"
             sx={{
@@ -57,7 +122,7 @@ function LoginForm() {
             }}
         >
      
-            <form onSubmit={formik.handleSubmit}>
+            <form>
             <Box sx={{ my: 3 }}>
               <Typography
                 color="textPrimary"
@@ -85,10 +150,11 @@ function LoginForm() {
                 <Button
                   color="secondary"
                   fullWidth
-                  onClick={signInWithGoogle}
                   size="large"
                   startIcon={<GoogleIcon />}
                   variant="contained"
+                  onClick={ingresarConGoogle}
+                  // disabled={loading}
                 >
                   Ingresa con Google
                 </Button>
@@ -140,8 +206,9 @@ function LoginForm() {
                 disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
-                type="submit"
+                // type="submit"
                 variant="contained"
+                onClick={ingresarConEmail}
               >
                 Ingresar ahora
               </Button>
