@@ -50,24 +50,26 @@ function SidebarFooter() {
                             src="https://entey.net/wp-content/uploads/2022/10/Noman-Ill-2-01-1-min.png"
                         />
                     </Box>
-                    <Link
-                        href="https://wa.link/s6xehb"
+                    {/* <Link
                         target="_blank"
+                        href="https://wa.link/s6xehb"
                         underline='none'
                         sx={{width: '100%'}}
-                    >
-                        <a target="_blank">
+                    > */}
+                        {/* <a target="_blank"> */}
                         <Button
                             color="secondary"
                             component="a"
                             endIcon={(<LaunchIcon />)}
                             fullWidth
                             variant="contained"
+                            target="_blank"
+                            href="https://wa.link/s6xehb"
                         >
                             Escríbenos
                         </Button>
-                        </a>
-                    </Link>
+                        {/* </a> */}
+                    {/* </Link> */}
             </Box>
   )
 }

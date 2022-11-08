@@ -26,7 +26,7 @@ function Registro() {
           display: { xs: 'none', lg: 'flex'},
         }}
       >
-        <img src='https://minimal-kit-react.vercel.app/assets/illustrations/illustration_login.png'/>
+        <img src='https://entey.net/wp-content/uploads/2022/11/ingresar-girl_Mesa-de-trabajo-1-min-1.png' />
       </Box>
       <Box
         sx={{

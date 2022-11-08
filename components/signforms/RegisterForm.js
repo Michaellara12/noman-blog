@@ -227,7 +227,7 @@ const RegisterForm = () => {
                 He leído los
                 {' '}
                 <NextLink
-                  href="https://content.entey.net/"
+                  href="https://entey.net/terminos-y-condiciones-de-uso/"
                   passHref
                 >
                   <Link

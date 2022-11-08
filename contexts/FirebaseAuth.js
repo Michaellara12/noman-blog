@@ -18,7 +18,6 @@ export function publicPage(Component) {
 
     if (currentUser) {
       router.replace("/");
-      return <Loader />
     }
 
     return <Component {...props} />;

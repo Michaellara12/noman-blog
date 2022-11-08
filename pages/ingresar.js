@@ -35,7 +35,7 @@ function Ingresar() {
             justifyContent: 'center'
           }}
         >
-          <img src='https://minimal-kit-react.vercel.app/assets/illustrations/illustration_login.png'/>
+          <img src='https://entey.net/wp-content/uploads/2022/11/Noman-Ill-4-01-2-min-1.png'/>
         </Box>
         <Box
           sx={{

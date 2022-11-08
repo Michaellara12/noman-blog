@@ -2,7 +2,6 @@
 import { Paper, Box, Typography, Divider } from "@mui/material"
 
 // Icons
-import InstagramIcon from '@mui/icons-material/Instagram';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 
 // other
@@ -28,12 +27,11 @@ function MisProyectosTab({project_title, project_caption, prompt, project_id, ic
             p: '1rem',
             display: 'flex',
             flexDirection: 'column',
-            cursor: 'pointer'
+            cursor: 'pointer',
         }}
         onClick={handleClick}
         component={motion.div}
         whileHover={{ scale: 1.05 }}
-        whileTab={{ scale: 0.9 }}
     >
         <Box
             sx={{

@@ -25,7 +25,7 @@ function InfoTab() {
                 variant='h4' 
                 gutterBottom
             >
-                ¿Deseas reportar un problema o bug?
+                ¡Ayudanos a mejorar!
             </Typography>
         </Box>
         <Box
@@ -36,14 +36,20 @@ function InfoTab() {
             <Box
                 sx={{width: '80%'}}
             >
-                <Typography variant='body2' gutterBottom>En caso de que tengas algún problema contactate con nuestro equipo de soporte ;)</Typography>
+                <Typography variant='body2' gutterBottom>Escríbenos si deseas nuevas funcionalidades o quieres reportar algún problema o bug.</Typography>
             </Box>
         </Box>
         <Box sx={{display: 'flex', width: '100%'}}>
                 <Box
                     sx={{width: '40%'}}
                 >
-                    <Button variant='contained'>contactar</Button>
+                    <Button 
+                        variant='contained' 
+                        target="_blank"
+                        href="https://wa.link/s6xehb"
+                    >
+                        contactar
+                    </Button>
                 </Box>
                 <Box
                     sx={{

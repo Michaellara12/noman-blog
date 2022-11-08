@@ -1,5 +1,5 @@
 // MUI
-import { Typography, Box, TextField, Paper, Stack, Button, useTheme, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material"
+import { Typography, Box, TextField, Paper, Stack, Button, useTheme, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Menu } from "@mui/material"
 
 // Components
 import MoreInfo from "./MoreInfo"
@@ -7,14 +7,18 @@ import OutputSample from "./OutputSample"
 
 // Icons
 import CreateIcon from '@mui/icons-material/Create';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 // other
 import axios from "axios";
 import { useState, useRef } from "react";
-import { doc, updateDoc } from "firebase/firestore"; 
+import { deleteDoc, doc, updateDoc } from "firebase/firestore"; 
 import db from "../../lib/firebase";
-import { useFormik } from "formik";
 import { useAuth } from "../../contexts/AuthContext";
+import Router from "next/router";
+
+import Loader from "../../utils/Loader";
 
 // <------------------------------------------> //
 
@@ -30,7 +34,7 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
 
       })
         .then(function (response) {
-            console.log(response)
+            console.log("request enviado")
         })
         .catch(function (error) {
             console.log(error)
@@ -38,8 +42,8 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
   }
 
   const [prompt, setPrompt] = useState(form_input)
-  const [newTitle, setNewTitle] = useState("")
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
   const theme = useTheme()
   const { currentUser }  = useAuth()
 
@@ -67,8 +71,6 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
   // Modal
   function FormDialog() {
   
-    // const formik = useFormik({})
-
     return (
       <div>
        
@@ -81,26 +83,42 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
               margin="dense"
               id="name"
               label="Nombre del proyecto"
-            //   type="text"
               fullWidth
               variant="standard"
               inputRef={valueRef}
-            //   value={formik.values.title}
-            //   onChange={formik.handleChange}
-            //   onChange={(e) => setNewTitle(e.target.value)}
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancelar</Button>
-            {/* <Button onClick={handleClose} variant='contained'>Guardar</Button> */}
             <Button onClick={updateProjectTitle} variant='contained'>Guardar</Button>
-
           </DialogActions>
         </Dialog>
       </div>
     );
   }
 
+    // Eliminar proyecto
+    const [anchorElUser, setAnchorElUser] = useState(null);
+
+
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    async function deleteProject(e) {
+        e.stopPropagation();
+        setLoading(true)
+        const docRef = doc(db, "users", currentUser.uid, "proyectos", proyectoId)
+        await deleteDoc(docRef)
+        setTimeout(() => {
+            Router.push('/')
+        }, 3000)
+        
+    }
 
 
   return (
@@ -133,6 +151,10 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
                     <Typography variant='h3' align='left' gutterBottom sx={{mb: '1rem'}}>
                         {projectTitle}
                     </Typography>
+                    <Stack
+                        direction='row'
+                        spacing={1}
+                    >
                     <Button
                         variant='contained'
                         sx={{p: '1rem', boxShadow: 'none'}}
@@ -141,6 +163,38 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
                     >
                         <CreateIcon />
                     </Button>
+                    <Button
+                        variant='contained'
+                        sx={{p: '1rem', boxShadow: 'none'}}
+                        onClick={handleOpenUserMenu}
+                        color='error'
+                    >
+                        <DeleteOutlineIcon />
+                    </Button>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                        >
+                       
+                        <MenuItem
+                            onClick={deleteProject}
+                        >
+                        <HighlightOffIcon color='error' sx={{mr: '0.5rem'}} />
+                        <Typography>Eliminar proyecto</Typography>
+                        </MenuItem>
+                    </Menu>
+                    </Stack>
                 </Stack>
                 
             </Box>
