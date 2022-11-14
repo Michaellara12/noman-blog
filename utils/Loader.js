@@ -9,7 +9,8 @@ function Loader() {
             height: '100vh',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            zIndex: 1000
         }}
     >
         <CircularProgress />

@@ -15,10 +15,13 @@ function Sidebar() {
     <Paper
         elevation={4}
         sx={{
-            height: '100%',
+            width: '15vw',
+            height: '96.5vh',
             borderRadius: '1.6rem',
             p: '0 1rem',
             overflow:'scroll',
+            position: 'fixed',
+            zIndex: 2,
         }}
         
     >

@@ -49,18 +49,18 @@ function BootstrapDialogTitle(props) {
 
 const templates = [
     {
-        icon: (<HistoryEduIcon fontSize='large' />),
-        title: 'Texto Personalizado',
-        description: 'Crea cualquier tipo de texto creativo, ponme a prueba.',
-        id: 'custom',
-        projectData: { 
-          form_title: "Solicita cualquier texto que necesites",
-          form_placeholder: "p. ej. ¿Cuál es mejor método para lanzar un producto?",
-          form_input: "",
-          tipo: "custom",
-          project_title: "Sin título",
-          project_caption: "Texto Personalizado",
-        }
+      icon: (<VerticalSplitIcon fontSize='large' />),
+      title: 'Ejes Temáticos',
+      description: 'Desarrolla cualquier tema a partir de 8 ejes temáticos.',
+      id: 'ejes_tematico',
+      projectData: { 
+        form_title: "¿Sobre qué título quieres obtener ejes temáticos?",
+        form_placeholder: "p. ej. Cómo triunfar en ventas por internet",
+        form_input: "",
+        tipo: "ejes_tematico",
+        project_title: "Sin título",
+        project_caption: "Ejes temáticos",
+      }
     },
     {
       icon: (<HistoryEduIcon fontSize='large' />),
@@ -74,20 +74,6 @@ const templates = [
         tipo: "ejes_articulo",
         project_title: "Sin título",
         project_caption: "Artículo",
-      }
-    },
-    {
-      icon: (<VerticalSplitIcon fontSize='large' />),
-      title: 'Ejes Temáticos',
-      description: 'Desarrolla cualquier tema a partir de 8 ejes temáticos.',
-      id: 'ejes_tematico',
-      projectData: { 
-        form_title: "¿Sobre qué título quieres obtener ejes temáticos?",
-        form_placeholder: "p. ej. Cómo triunfar en ventas por internet",
-        form_input: "",
-        tipo: "ejes_tematico",
-        project_title: "Sin título",
-        project_caption: "Ejes temáticos",
       }
     },
     {
@@ -175,8 +161,20 @@ const templates = [
           project_caption: "Asuntos de Email",
         }
     },
-    
-    
+    {
+      icon: (<RecordVoiceOverIcon fontSize='large' />),
+      title: 'Objeciones',
+      description: 'Crea tres posibles objeciones para tu producto o servicio.',
+      id: 'objeciones',
+      projectData: { 
+        form_title: "¿Cuál es el producto o servicio del que deseas recibir objeciones?",
+        form_placeholder: "p. ej. Un servicio de transporte privado...",
+        form_input: "",
+        tipo: "objeciones",
+        project_title: "Sin título",
+        project_caption: "Objeciones",
+      }
+    },
     {
         icon: (<RecordVoiceOverIcon fontSize='large' />),
         title: 'Opiniones',
@@ -192,18 +190,32 @@ const templates = [
         }
     },
     {
-        icon: (<RecordVoiceOverIcon fontSize='large' />),
-        title: 'Objeciones',
-        description: 'Crea tres posibles objeciones para tu producto o servicio.',
-        id: 'objeciones',
+        icon: (<SearchIcon fontSize='large' />),
+        title: 'Descripciones de SEO',
+        description: 'Crea cinco descripciones SEO para tu artículo.',
+        id: 'seo_descripcion',
         projectData: { 
-          form_title: "¿Cuál es el producto o servicio del que deseas recibir objeciones?",
-          form_placeholder: "p. ej. Un servicio de transporte privado...",
-          form_input: "Texto creado previamente por el usuario",
-          tipo: "objeciones",
+          form_title: "¿Cuál es el titulo de tu artículo del que seas obtener SEO descripciones?",
+          form_placeholder: "p. ej. 10 consejos sobre estrategia de contenido",
+          form_input: "",
+          tipo: "seo_descripcion",
           project_title: "Sin título",
-          project_caption: "Objeciones",
+          project_caption: "Descripción SEO",
         }
+    },
+    {
+      icon: (<HistoryEduIcon fontSize='large' />),
+      title: 'Texto Personalizado',
+      description: 'Crea cualquier tipo de texto creativo, ponme a prueba.',
+      id: 'custom',
+      projectData: { 
+        form_title: "Solicita cualquier texto que necesites",
+        form_placeholder: "p. ej. ¿Cuál es mejor método para lanzar un producto?",
+        form_input: "",
+        tipo: "custom",
+        project_title: "Sin título",
+        project_caption: "Texto Personalizado",
+      }
     },
 ]
 

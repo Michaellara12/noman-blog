@@ -18,11 +18,11 @@ function AppLayout({children}) {
             <Box
                 sx={{
                     width: '16%',
-                    height: '100vh',
-                    p: '0.8rem'
+                    p: '0.8rem',
                 }}
             >
-                <Sidebar />
+                
+                    <Sidebar />
             </Box>
             <Box
                 sx={{

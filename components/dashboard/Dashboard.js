@@ -26,7 +26,7 @@ const templates = [
   {
     icon: (<LocalGroceryStoreIcon fontSize='large' />),
     title: 'Descripción de producto',
-    description: 'Crea cinco descripciones de producto para tu tienda.',
+    description: 'Crea 5 descripciones de producto para tu tienda.',
     id: 'des_producto',
     projectData: { 
       form_title: "¿Cuál es el producto o servicio?",
@@ -112,7 +112,7 @@ function Dashboard() {
         // p: '3%',
         // alignItems: 'stretch', 
         // justifyContent: 'stretch', 
-        overflow: 'scroll',
+        // overflow: 'scroll',
 
       }}
     >
@@ -217,9 +217,13 @@ function Dashboard() {
         </Typography>
         <Divider sx={{ my: '1rem', width: '20%' }}/>
       </Box>
-      {projects.map((project) => (
-          <MisProyectosTab project_title={project.project_title} project_caption={project.project_caption} prompt={project.form_input} key={project.id} project_id={project.id}/>
+      <Box
+        // sx={{height: '8rem'}}
+      >
+        {projects.map((project) => (
+            <MisProyectosTab project_title={project.project_title} project_caption={project.project_caption} prompt={project.form_input} key={project.id} project_id={project.id}/>
         ))}
+      </Box>
     </Box>
     </>
   )

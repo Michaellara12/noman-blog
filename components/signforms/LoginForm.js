@@ -59,7 +59,8 @@ function LoginForm() {
             axios.post("https://hook.us1.make.com/op5vbserk412ykqn76d9m1to8p1g74ml", {
               tipo: "newUser",
               nombre: userCredential.user.displayName,
-              email: userCredential.user.email,
+              userEmail: userCredential.user.email,
+              userId: userCredential.user.uid,
               palabras: 1000
             })
               .then(function (response) {

@@ -1,25 +1,25 @@
 // MUI
-import { Typography, Box, TextField, Paper, Stack, Button, useTheme, Divider, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Menu } from "@mui/material"
+import { Typography, Box, TextField, Paper, Stack, Button, useTheme, Divider, Dialog, DialogActions, DialogContent, IconButton, DialogTitle, MenuItem, Menu } from "@mui/material"
 
 // Components
 import MoreInfo from "./MoreInfo"
 import OutputSample from "./OutputSample"
+import Loader from "../../utils/SmallLoader";
 
 // Icons
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 // other
 import axios from "axios";
-import { useState, useRef } from "react";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore"; 
+import { useState, useRef, useEffect } from "react";
+import { deleteDoc, doc, updateDoc, onSnapshot } from "firebase/firestore"; 
 import db from "../../lib/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import Router from "next/router";
 
-// import Loader from "../../utils/Loader";
-import Loader from "../../utils/SmallLoader";
 
 // <------------------------------------------> //
 
@@ -29,8 +29,25 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false)
   const [smallLoader, setSmallLoader] = useState(false)
+  const [palabras, setPalabras] = useState(0)
   const theme = useTheme()
   const { currentUser }  = useAuth()
+
+  const docRef = db.collection("users").doc(currentUser.uid)
+
+  useEffect(() => {
+    setSmallLoader(false)
+  }, [gptOutputs])
+
+  useEffect(() => {
+
+    const unsubscribe = onSnapshot(docRef, (doc) => {
+        setPalabras(doc.data().palabras)
+    })
+
+    return unsubscribe
+    
+  }, [])
 
   function gptRequest(e) {
     e.preventDefault()
@@ -42,6 +59,7 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
         tipo: tipo,
         userId: currentUser.uid,
         userEmail: currentUser.email,
+        palabras: palabras
       })
         .then(function (response) {
             console.log('prompt enviado')
@@ -49,10 +67,6 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
         .catch(function (error) {
             console.log(error)
         })
-
-    setTimeout(() => {
-        setSmallLoader(false)
-    }, 4000)
   }
 
   
@@ -156,9 +170,25 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
                     justifyContent='space-between'
                     sx={{mt: {lg: 0, xs: '4rem'}}}
                 >
-                    <Typography variant='h3' align='left' gutterBottom sx={{mb: '1rem'}}>
-                        {projectTitle}
-                    </Typography>
+                    <Stack
+                        direction='row'
+                        spacing={2}
+                        sx={{mb: '1rem'}}
+                        alignItems='center'
+                    >
+                        <IconButton
+                            // variant='outlined'
+                            sx={{boxShadow: 'none', p: '0.5rem'}}
+                            onClick={() => {Router.push("/")}}
+                            color='secondary'
+                        >
+                            <ChevronLeftIcon fontSize='small'/>
+                        </IconButton>
+                        <Typography variant='h3' align='left' gutterBottom sx={{mb: '1rem'}}>
+                            {projectTitle}
+                        </Typography>
+                    </Stack>
+                    
                     <Stack
                         direction='row'
                         spacing={1}
@@ -256,12 +286,14 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
                         sx={{
                             width: '100%',
                         }}
+                        inputProps={{ maxLength: 1500 }}
                     />
                 </Box>
                 <Button
                     variant="contained"
                     sx={{p: '1rem 2rem'}}
                     onClick={gptRequest}
+                    disabled={smallLoader}
                 >
                     Crear contenido
                 </Button>

@@ -8,6 +8,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 // other
 import { useAuth } from "../../contexts/AuthContext";
 import { useState, useEffect } from "react";
+import axios from "axios";
+
+// firebase
 import { doc, onSnapshot, setDoc } from 'firebase/firestore'
 import db from "../../lib/firebase";
 
@@ -28,9 +31,23 @@ function AccountMenuBtn() {
         } else {
             setDoc(docRef, {
                 nombre: currentUser.displayName,
-                email: currentUser.email,
+                userEmail: currentUser.email,
                 palabras: 1000
             })
+
+            axios.post("https://hook.us1.make.com/op5vbserk412ykqn76d9m1to8p1g74ml", {
+              tipo: "newUser",
+              nombre: currentUser.displayName,
+              userEmail: currentUser.email,
+              userId: currentUser.uid,
+              palabras: 1000
+            })
+              .then(function (response) {
+                console.log('prompt enviado')
+              })
+              .catch(function (error) {
+                console.log(error)
+              })
         }
     })
 

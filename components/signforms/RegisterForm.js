@@ -61,7 +61,8 @@ const RegisterForm = () => {
             axios.post("https://hook.us1.make.com/op5vbserk412ykqn76d9m1to8p1g74ml", {
               tipo: "newUser",
               nombre: userCredential.user.displayName,
-              email: userCredential.user.email,
+              userEmail: userCredential.user.email,
+              userId: userCredential.user.uid,
               palabras: 1000
             })
               .then(function (response) {
@@ -72,11 +73,11 @@ const RegisterForm = () => {
               })
 
             setDoc(dbRef, {
-            nombre: userCredential.user.displayName,
-            fotoPerfil: userCredential.user.photoURL,
-            email: userCredential.user.email,
-            palabras: 1000
-          })
+              nombre: userCredential.user.displayName,
+              fotoPerfil: userCredential.user.photoURL,
+              userEmail: userCredential.user.email,
+              palabras: 1000
+            })
             Router.push("/")
         }
       }).catch((e) => {console.log(e)})

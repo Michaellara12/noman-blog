@@ -26,8 +26,7 @@ const items = [
         href: '/cuenta',
         icon: (<AccountCircleIcon fontSize="small" />),
         title: 'Cuenta'
-    },
-    
+    },    
 ]
 
 function SidebarData() {
