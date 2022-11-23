@@ -39,6 +39,6 @@ export function privatePage(Component) {
       return <Loader />
     }
 
-    return <Component {...props} />;
+    return <>{currentUser ? <Component {...props}/> : null}</>;
   }
 }

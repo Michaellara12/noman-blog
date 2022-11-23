@@ -78,7 +78,7 @@ function AccountProfile() {
                 >
                     Palabras: {palabras}
                 </Typography>
-                <Button variant='contained' sx={{mt: '1rem', width: '100%'}} href='https://content.entey.net/precios/' target="_blank">Comprar palabras</Button>
+                <Button variant='contained' sx={{mt: '1rem', width: '100%'}} href='https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848499f88601849ca44b9e01fb' target="_blank">Adquiere Noman Pro</Button>
             </Box>
         </CardContent>
       

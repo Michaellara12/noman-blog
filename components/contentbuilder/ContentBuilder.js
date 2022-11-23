@@ -1,5 +1,5 @@
 // MUI
-import { Typography, Box, TextField, Paper, Stack, Button, useTheme, Divider, Dialog, DialogActions, DialogContent, IconButton, DialogTitle, MenuItem, Menu } from "@mui/material"
+import { Typography, Box, TextField, Paper, Stack, Button, useTheme, Divider, Dialog, DialogActions, DialogContent, IconButton, DialogTitle, MenuItem, Menu, FormControl, InputLabel, Select } from "@mui/material"
 
 // Components
 import MoreInfo from "./MoreInfo"
@@ -30,6 +30,10 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
   const [loading, setLoading] = useState(false)
   const [smallLoader, setSmallLoader] = useState(false)
   const [palabras, setPalabras] = useState(0)
+  const [tono, setTono] = useState("Amistoso")
+  const [numOutputs, setNumOutputs] = useState(3);
+
+
   const theme = useTheme()
   const { currentUser }  = useAuth()
 
@@ -59,7 +63,9 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
         tipo: tipo,
         userId: currentUser.uid,
         userEmail: currentUser.email,
-        palabras: palabras
+        palabras: palabras,
+        tono: tono,
+        num_output: numOutputs
       })
         .then(function (response) {
             console.log('prompt enviado')
@@ -69,7 +75,10 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
         })
   }
 
-  
+  // Add select form to generate multiple outputs
+  const templatesNumOutputs = ['llu_ideas', 'asuntos', 'objeciones', 'titulo', 'ejes_tematico', 'des_producto', 'seo_descripcion' ]
+  const templateTipo = tipo;
+  const needsNumOutputs = templatesNumOutputs.includes(templateTipo)
 
   const handleClickOpen = () => {
       setOpen(true);
@@ -77,6 +86,16 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
   
   const handleClose = () => {
       setOpen(false);
+  };
+
+  // Tono
+  const handleSelectFormChange = (event) => {
+    setTono(event.target.value);
+  };
+
+  // numOutputs
+  const handleSelectFormChangeOutputs = (event) => {
+    setNumOutputs(event.target.value);
   };
 
   // Modal
@@ -89,6 +108,69 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
      await updateDoc(docRef, {
         project_title: valueRef.current.value
      })
+  }
+
+  // Tono Form selector
+  function TonoFormSelector() {
+    return (
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Tono</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={tono}
+              label="Tono"
+              onChange={handleSelectFormChange}
+            >
+              <MenuItem value={"Amistoso"}>😊 Amistoso</MenuItem>
+              <MenuItem value={"Persuasivo"}>🧐 Persuasivo</MenuItem>
+              <MenuItem value={"Reflexivo"}>🧠 Reflexivo</MenuItem>
+              <MenuItem value={"Emocional"}>😸 Emocional</MenuItem>
+              <MenuItem value={"Racional"}>🤖 Racional</MenuItem>
+              <MenuItem value={"Serio"}>😐 Serio</MenuItem>
+              <MenuItem value={"Conservador"}>⛪ Conservador</MenuItem>
+              <MenuItem value={"Moderado"}>⚖️ Moderado</MenuItem>
+              <MenuItem value={"Divertido"}>😂 Divertido</MenuItem>
+              <MenuItem value={"Joven"}>👱🏻 Joven</MenuItem>
+              <MenuItem value={"Dinámico"}>🌟 Dinámico</MenuItem>
+              <MenuItem value={"Coloquial"}>🤴🏻 Coloquial</MenuItem>
+              <MenuItem value={"Informativo"}>📰 Informativo</MenuItem>
+              <MenuItem value={"Objetivo"}>👁️‍🗨️ Objetivo</MenuItem>
+              <MenuItem value={"Pedagógico"}>👩🏻‍🏫 Pedagógico</MenuItem>
+              <MenuItem value={"Recomendación"}>👌 Recomendación</MenuItem>
+              <MenuItem value={"Corporativo"}>🏢 Corporativo</MenuItem>
+              <MenuItem value={"Informal"}>🗣️ Informal</MenuItem>
+              <MenuItem value={"Cercano"}>🧑‍🤝‍🧑 Cercano</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      );
+  }
+
+  // NumOutputsFormSelector
+  function NumOutputsFormSelector() {
+    return (
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Número de generaciones deseadas</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={numOutputs}
+              label="Número de generaciones deseadas"
+              onChange={handleSelectFormChangeOutputs}
+            >
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={7}>7</MenuItem>
+              <MenuItem value={8}>8</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      );
   }
 
 
@@ -289,6 +371,11 @@ function ContentBuilder({form_title, form_placeholder, form_input, gptOutputs, p
                         inputProps={{ maxLength: 1500 }}
                     />
                 </Box>
+
+                <TonoFormSelector />
+
+                {needsNumOutputs ? <NumOutputsFormSelector /> : null }
+       
                 <Button
                     variant="contained"
                     sx={{p: '1rem 2rem'}}

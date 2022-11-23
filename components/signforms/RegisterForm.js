@@ -42,7 +42,7 @@ const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
 
   // Auth
-  const { signup, signInWithGoogle, currentUser } = useAuth();
+  const { signup, signInWithGoogle } = useAuth();
 
   // Auth 
   async function ingresarConGoogle(e) {

@@ -144,6 +144,22 @@ function LoginForm() {
               <Typography
                 color="textPrimary"
                 variant="h4"
+                sx={{display: {lg: 'none'}}}
+                align='center'
+              >
+                ¡Crea contenido con Inteligencia Artificial!
+              </Typography>
+              <Typography
+                color="textPrimary"
+                variant="body2"
+                sx={{display: {lg: 'none'}, mb: '2rem'}}
+                align='center'
+              >
+                Usa inteligencia artificial para crear artículos (blogs), descripciones de producto, meta títulos o meta descripciones para SEO y mucho más...
+              </Typography>
+              <Typography
+                color="textPrimary"
+                variant="h4"
               >
                 Ingresar
               </Typography>

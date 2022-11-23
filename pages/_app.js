@@ -40,12 +40,11 @@ function MyApp({ Component, pageProps }) {
   
 
   return (
-    <ThemeProvider>
-      <AuthProvider>
-       <><Loading/><Component {...pageProps} /></>
-      </AuthProvider>
-    </ThemeProvider>
-
+      <ThemeProvider>
+        <AuthProvider>
+        <><Loading/><Component {...pageProps} /></>
+        </AuthProvider>
+      </ThemeProvider>
   )
 }
 

@@ -6,7 +6,14 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 // other
 import { useState } from "react";
-import TemplateTab from "./ProyectosTabBtn";
+import { useAuth } from "../../../contexts/AuthContext";
+import Router from "next/router";
+// import Loader from "../../../utils/SmallLoader"
+// import Loader from "../../../utils/Loader"
+
+// firebase
+import db from "../../../lib/firebase";
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 // Icons
 import CloseIcon from '@mui/icons-material/Close';
@@ -221,9 +228,11 @@ const templates = [
 
 
 
+
 function NewProjectTab() {
 
   const [open, setOpen] = useState(false);
+  // const [loading, setLoading] = useState(false)
   
 
   const handleClickOpen = () => {
@@ -233,9 +242,47 @@ function NewProjectTab() {
     setOpen(false);
   };
 
+  function TemplateTab({icon, title, description, projectData}) {
+    // const [loading, setLoading] = useState(false)
+    const { currentUser } = useAuth()
+    async function handleTabClick(e) {
+      try {
+        // setLoading(true)
+        const collectionRef = collection(db, "users", currentUser.uid, "proyectos")
+        const docRef = await addDoc(collectionRef, {...projectData, timestamp: serverTimestamp()})
+        const docRefId = docRef._key.path.segments[3];
+        handleClose()
+        Router.push(`/proyectos/${docRefId}`)
+      } catch (e) {
+        console.log(e)
+      }
+    } 
+  
+    return (
+      <>
+        <Button
+            sx={{m: '0.5rem', p: '1.5rem'}}
+            variant='outlined'
+            onClick={handleTabClick}
+        >
+            <Stack
+                direction='column'
+                spacing={1}
+            >
+                {icon}
+                <Typography variant='subtitle1' align='left'>{title}</Typography>
+                <Typography variant='body2' align='left'>{description}</Typography>
+                    
+            </Stack>
+        </Button>
+      </>
+    )
+  }
+
 
   return (
     <>
+    {/* {loading && <Loader />} */}
     <Button 
         variant='contained'
         color='secondary'

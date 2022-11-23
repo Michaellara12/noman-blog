@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react"
 
 // Firebase
 import { auth, googleAuthProvider, db } from "../lib/firebase"
-
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 
 // <---------------------------------------------------> //
@@ -17,6 +17,38 @@ export function useAuth() {
 function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true)
+  const firebaseAuth = getAuth();
+
+  // useEffect(() => {
+
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       setCurrentUser(user)
+  //     } else {
+  //       setCurrentUser(null)
+  //     }
+
+  //     setLoading(false)
+  //   })
+
+  //   return unsubscribe
+  // }, [])
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
+      if (user) {
+        setCurrentUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+        })
+      } else {
+        setCurrentUser(null)
+      }
+      setLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
 
   async function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password)
@@ -46,19 +78,6 @@ function AuthProvider({ children }) {
   function updatePassword(password) {
     return currentUser.updatePassword(password)
   }
-
-  useEffect(() => {
-
-    // This will store the user
-    const unsubscribe = auth.onAuthStateChanged(user => {
-        setCurrentUser(user)
-
-        // This will wait until user is loaded
-        setLoading(false)
-    })
-
-    return unsubscribe
-  }, [])
    
   const value = {
     currentUser,
