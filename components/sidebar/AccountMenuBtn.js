@@ -9,6 +9,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useAuth } from "../../contexts/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Router from "next/router";
 
 // firebase
 import { doc, onSnapshot, setDoc } from 'firebase/firestore'
@@ -21,9 +22,8 @@ function AccountMenuBtn() {
   const { currentUser } = useAuth();
   const [palabras, setPalabras] = useState()
 
-  const docRef = db.collection("users").doc(currentUser.uid)
-
   useEffect(() => {
+    const docRef = db.collection("users").doc(currentUser.uid);
 
     const unsubscribe = onSnapshot(docRef, (doc) => {
         if(doc._document) {
@@ -53,10 +53,13 @@ function AccountMenuBtn() {
 
     return unsubscribe
     
-  }, [])
+  }, [])  
 
 
   return (
+    <>
+    {currentUser 
+    ? 
     <Box
         sx={{
             display: 'flex',
@@ -99,6 +102,10 @@ function AccountMenuBtn() {
         <KeyboardArrowDownIcon fontSize="medium" sx={{ ml: '0.2rem' }}/>
 
     </Box>
+    : null
+    }
+    
+    </>
   )
 }
 

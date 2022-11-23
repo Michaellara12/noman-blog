@@ -6,6 +6,7 @@ import { useAuth } from "./AuthContext"
 
 // components
 import Loader from '../utils/Loader'
+import { useEffect } from "react";
 
 
 // <-----------------------------------------------------------> //
@@ -14,7 +15,7 @@ import Loader from '../utils/Loader'
 export function publicPage(Component) {
   return function PublicPage(props) {
     const { currentUser } = useAuth();
-    const router =useRouter();
+    const router = useRouter();
 
     if (currentUser) {
       router.replace("/");
@@ -23,7 +24,6 @@ export function publicPage(Component) {
     return <Component {...props} />;
   }
 }
-
 
 
 

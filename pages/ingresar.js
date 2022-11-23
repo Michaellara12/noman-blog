@@ -67,4 +67,4 @@ function Ingresar() {
   )
 }
 
-export default publicPage(Ingresar)
+export default publicPage(Ingresar);

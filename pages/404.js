@@ -9,10 +9,11 @@ import AppLayout from "../layout/AppLayout"
 
 // other
 import Router from "next/router";
+import { privatePage } from "../contexts/FirebaseAuth";
 
 // <-----------------------------------------------> //
 
-export default function NotFound() {
+function NotFound() {
 
     function redirect(e) {
         e.preventDefault()
@@ -59,3 +60,5 @@ export default function NotFound() {
       </AppLayout>
     )
   }
+
+export default privatePage(NotFound)

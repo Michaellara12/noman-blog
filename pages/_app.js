@@ -1,5 +1,6 @@
 // Components
 import ThemeProvider from "../theme"
+import ErrorBoundary from "../components/errorboundary/ErrorBoundary";
 
 // Context
 import AuthProvider from "../contexts/AuthContext";
@@ -40,11 +41,14 @@ function MyApp({ Component, pageProps }) {
   
 
   return (
+    <ErrorBoundary>
       <ThemeProvider>
-        <AuthProvider>
-        <><Loading/><Component {...pageProps} /></>
-        </AuthProvider>
+          <AuthProvider>
+          <><Loading/><Component {...pageProps} /></>
+          </AuthProvider>
       </ThemeProvider>
+    </ErrorBoundary>
+
   )
 }
 

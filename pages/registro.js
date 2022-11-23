@@ -42,4 +42,4 @@ function Registro() {
   )
 }
 
-export default publicPage(Registro)
+export default publicPage(Registro);

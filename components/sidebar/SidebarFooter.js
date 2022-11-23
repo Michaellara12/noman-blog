@@ -50,7 +50,13 @@ function SidebarFooter() {
                             src="https://entey.net/wp-content/uploads/2022/11/sidebarill-01-1-min.png"
                         />
                     </Box>
-                  
+                    {/* <Link
+                        target="_blank"
+                        href="https://wa.link/s6xehb"
+                        underline='none'
+                        sx={{width: '100%'}}
+                    > */}
+                        {/* <a target="_blank"> */}
                         <Button
                             color="secondary"
                             component="a"
@@ -63,7 +69,8 @@ function SidebarFooter() {
                         >
                             Adquiere Noman Pro
                         </Button>
-                       
+                        {/* </a> */}
+                    {/* </Link> */}
             </Box>
   )
 }
